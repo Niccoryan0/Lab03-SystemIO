@@ -60,7 +60,7 @@ namespace Lab03_SystemIO
                         HandleRemoveWord();
                         break;
                     case 8:
-                        HandleProdString();
+                        HandleSentenceCounter();
                         break;
                 }
                 Console.WriteLine("Choose another challenge? y/n");
@@ -298,6 +298,30 @@ namespace Lab03_SystemIO
             }
             File.WriteAllText(path, result);
             Console.WriteLine($"\"{result}\" was written to file.");
+        }
+
+        public static void HandleSentenceCounter()
+        {
+            Console.WriteLine("What sentence would you like me to count the letters in each word for?");
+            string userInput = Console.ReadLine();
+            string[] result = SentenceCounter(userInput);
+            Console.WriteLine(string.Join(", ", result));
+        }
+
+        public static string[] SentenceCounter(string input)
+        {
+            char[] possibleChars = { ' ', ',', '.', ':', '-', '\t' };
+            string[] result = input.Split(possibleChars);
+            for (int i = 0; i < result.Length; i++)
+            {
+                int count = 0;
+                foreach (char letter in result[i])
+                {
+                    count++;
+                }
+                result[i] += $": {count}";
+            }
+            return result;
         }
     }
 }

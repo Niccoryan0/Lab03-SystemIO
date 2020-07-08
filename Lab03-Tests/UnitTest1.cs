@@ -111,5 +111,16 @@ namespace Lab03_Tests
             int result = GetMax(arr);
             Assert.Equal(100, result);
         }
+
+        [Theory]
+        [InlineData("This.is a test:string", new string[] { "This: 4", "is: 2", "a: 1", "test: 4", "string: 6" })]
+        [InlineData("The quick brown", new string[] { "The: 3", "quick: 5", "brown: 5" })]
+        [InlineData("", new string[] { ": 0" })]
+
+        public void CanCountLetters(string input, string[] expected)
+        {
+            string[] result = SentenceCounter(input);
+            Assert.Equal(expected, result);
+        }
     }
 }
