@@ -36,7 +36,6 @@ namespace Lab03_SystemIO
                 }
             }
             Console.WriteLine("Thanks for visiting!");
-
         }
 
         public static void HandleProdString()
