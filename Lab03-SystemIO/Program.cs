@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Lab03_SystemIO
 {
@@ -25,9 +26,8 @@ namespace Lab03_SystemIO
                 Console.WriteLine("2. Average");
                 Console.WriteLine("3. Diamond");
                 Console.WriteLine("4. Most common occurrence");
-                Console.WriteLine("5. Products");
-                Console.WriteLine("6. Products");
-                Console.WriteLine("7. Products");
+                Console.WriteLine("5. Maximum Value");
+                Console.WriteLine("6. Write and Read file");
                 Console.WriteLine("8. Products");
                 Console.WriteLine("9. Products");
                 Console.WriteLine("0. Exit");
@@ -54,15 +54,12 @@ namespace Lab03_SystemIO
                         HandleMax();
                         break;
                     case 6:
-                        HandleProdString();
+                        HandleFileWriteAndRead();
                         break;
                     case 7:
                         HandleProdString();
                         break;
                     case 8:
-                        HandleProdString();
-                        break;
-                    case 9:
                         HandleProdString();
                         break;
                 }
@@ -265,6 +262,28 @@ namespace Lab03_SystemIO
                 }
             }
             return result;
+        }
+
+        static void HandleFileWriteandRead()
+        {
+            string path = "../../../words.txt";
+            FileWriteText(path);
+            Console.WriteLine("Press any button to have your word read from it's file");
+            Console.ReadLine();
+            FileReadText(path);
+        }
+
+        public static void FileWriteText(string path)
+        {
+            Console.WriteLine("What is your favorite word?");
+            string userInput = Console.ReadLine();
+            File.WriteAllText(path, userInput);
+        }
+
+        public static void FileReadText(string path)
+        {
+            string result = File.ReadAllText(path);
+            Console.WriteLine(result);
         }
     }
 }

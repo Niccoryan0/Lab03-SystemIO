@@ -28,7 +28,7 @@ Then select and open ```Lab02-UnitTests.sln```
 
 ### Visuals
 #### Application in Action
-![Image 1](/assets/Lab03-Image.png)
+![Image 1](assets/Lab03-WB.png)
 
 
 ---
