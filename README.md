@@ -27,8 +27,11 @@ Then select and open ```Lab02-UnitTests.sln```
 ---
 
 ### Visuals
+#### Whiteboard
+![Whiteboard](assets/Lab03-WB.png)
 #### Application in Action
-![Image 1](assets/Lab03-WB.png)
+![In action 1](assets/Lab03-SS1.png)
+![In action 2](assets/Lab03-SS2.png)
 
 
 ---
