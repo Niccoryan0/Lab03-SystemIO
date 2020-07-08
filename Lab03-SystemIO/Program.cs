@@ -57,7 +57,7 @@ namespace Lab03_SystemIO
                         HandleFileWriteAndRead();
                         break;
                     case 7:
-                        HandleProdString();
+                        HandleRemoveWord();
                         break;
                     case 8:
                         HandleProdString();
@@ -264,7 +264,7 @@ namespace Lab03_SystemIO
             return result;
         }
 
-        static void HandleFileWriteandRead()
+        static void HandleFileWriteAndRead()
         {
             string path = "../../../words.txt";
             FileWriteText(path);
@@ -284,6 +284,20 @@ namespace Lab03_SystemIO
         {
             string result = File.ReadAllText(path);
             Console.WriteLine(result);
+        }
+
+        public static void HandleRemoveWord()
+        {
+            string path = "../../../words.txt";
+            Console.WriteLine("What word would you like to remove from the file?");
+            string userInput = Console.ReadLine();
+            string result = File.ReadAllText(path);
+            if (result.Contains(userInput))
+            {
+                result.Replace(userInput, "");
+            }
+            File.WriteAllText(path, result);
+            Console.WriteLine($"\"{result}\" was written to file.");
         }
     }
 }
