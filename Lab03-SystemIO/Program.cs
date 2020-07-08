@@ -56,7 +56,7 @@ namespace Lab03_SystemIO
             int prod = 1;
             for (int i = 0; i < 3; i++)
             {
-                prod *= int.Parse(myArr[i]);
+                prod *= int.TryParse(myArr[i], out int returnVal) ? returnVal : 1;
             }
             return prod;
         }
