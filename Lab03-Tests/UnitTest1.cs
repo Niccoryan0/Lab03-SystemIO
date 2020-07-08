@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using static Lab03_SystemIO.Program;
 
@@ -19,7 +18,7 @@ namespace Lab03_Tests
         [Theory]
         [InlineData("1 2", 0)]
         [InlineData("5 2 3 4", 30)]
-        public void CanHandleDifferentSizes(string input, int expected)
+        public void ProductCanHandleDifferentSizes(string input, int expected)
         {
             int result = ProdString(input);
             Assert.Equal(expected, result);
@@ -27,9 +26,27 @@ namespace Lab03_Tests
 
 
         [Fact]
-        public void CanHandleEmpties()
+        public void ProductCanHandleEmpties()
         {
             int result = ProdString("");
+            Assert.Equal(0, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 4, 18, 15, 16 }, 13.25)]
+        [InlineData(new int[] { 10, 4, 13 }, 9)]
+        public void CanGetAverages(int[] arr, decimal expected)
+        {
+            decimal result = GetAverage(arr);
+            Assert.Equal(expected, result);
+        }
+
+
+        [Fact]
+        public void CanHandleAllZeroes()
+        {
+            int[] test = new int[] { 0, 0, 0, 0 };
+            decimal result = GetAverage(test);
             Assert.Equal(0, result);
         }
     }
