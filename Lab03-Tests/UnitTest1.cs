@@ -49,5 +49,67 @@ namespace Lab03_Tests
             decimal result = GetAverage(test);
             Assert.Equal(0, result);
         }
+
+        [Theory]
+        [InlineData(new int[] { 1, 3, 4, 5, 6, 1, 5, 5 }, 5)]
+        [InlineData(new int[] { 10, 15, 34, 3, 5, 6, 8, 10, 11, 1, 1, 3 }, 10)]
+        [InlineData(new int[] { 3, 1, 3 }, 3)]
+        public void CanGetMostCommon(int[] arr, int expected)
+        {
+            int result = GetMostFrequent(arr);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 3, 3, 3, 3, 3 }, 3)]
+        [InlineData(new int[] { 14, 14, 14 }, 14)]
+        public void MostCommonAllSameNumber(int[] arr, int expected)
+        {
+            int result = GetMostFrequent(arr);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 3, 4, 6, 5 }, 1)]
+        [InlineData(new int[] { 7, 3, 9, 10, 15 }, 7)]
+        public void MostCommonNoDuplicates(int[] arr, int expected)
+        {
+            int result = GetMostFrequent(arr);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 3, 4, 5, 6, 1, 1, 5, 5 }, 1)]
+        [InlineData(new int[] { 3, 4, 5, 6, 1, 5, 5, 1, 1 }, 5)]
+        public void MostCommonMultipleWinners(int[] arr, int expected)
+        {
+            int result = GetMostFrequent(arr);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 5, 25, 99, 123, 78, 96, 555, 108, 4 }, 555)]
+        [InlineData(new int[] { 467, 40, 433, 223, 2 }, 467)]
+        public void CanCalculateMax(int[] arr, int expected)
+        {
+            int result = GetMax(arr);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void HighestOfNegatives()
+        {
+            int[] arr = new int[] { -5, -25, -99, -123, -78, -96, -555, -108, -4 };
+            int result = GetMax(arr);
+            Assert.Equal(-4, result);
+        }
+
+        [Fact]
+        public void HighestOfAllSameValues()
+        {
+            int[] arr = new int[] { 100, 100, 100, 100, 100 };
+            int result = GetMax(arr);
+            Assert.Equal(100, result);
+        }
     }
 }
