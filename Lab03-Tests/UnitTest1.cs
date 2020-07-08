@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 using static Lab03_SystemIO.Program;
 
@@ -41,6 +42,13 @@ namespace Lab03_Tests
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void CanConvertArray()
+        {
+            string[] arr = new string[] { "1", "2", "3" };
+            int[] result = ConvertArray(arr);
+            Assert.Equal(new int[] { 1, 2, 3 }, result);
+        }
 
         [Fact]
         public void CanHandleAllZeroes()

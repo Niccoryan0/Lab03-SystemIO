@@ -112,14 +112,30 @@ namespace Lab03_SystemIO
         {
             Console.WriteLine("Please enter a number between 2 and 10: ");
             int userInput = int.Parse(Console.ReadLine());
-            int[] newArr = new int[userInput];
+            string[] newArr = new string[userInput];
             for (int i = 0; i < userInput; i++)
             {
                 Console.WriteLine($"Enter a number ({i+1} of {userInput}): ");
-                newArr[i] = int.Parse(Console.ReadLine());
+                newArr[i] = Console.ReadLine();
             }
-            decimal result = GetAverage(newArr);
-            Console.WriteLine($"The average of {string.Join(", ", newArr)} is {result}");
+            int[] convertedArr = ConvertArray(newArr);
+            decimal result = GetAverage(convertedArr);
+            Console.WriteLine($"The average of {string.Join(", ", convertedArr)} is {result}");
+        }
+
+        /// <summary>
+        /// Convert an array of strings to integers
+        /// </summary>
+        /// <param name="arr">Array to convert</param>
+        /// <returns>Converted integer array</returns>
+        public static int[] ConvertArray(string[] arr)
+        {
+            int[] result = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                result[i] = int.Parse(arr[i]);
+            }
+            return result;
         }
 
         /// <summary>
