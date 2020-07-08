@@ -28,9 +28,9 @@ namespace Lab03_SystemIO
                 Console.WriteLine("4. Most common occurrence");
                 Console.WriteLine("5. Maximum Value");
                 Console.WriteLine("6. Write and Read file");
-                Console.WriteLine("8. Products");
-                Console.WriteLine("9. Products");
-                Console.WriteLine("0. Exit");
+                Console.WriteLine("7. Remove word from file");
+                Console.WriteLine("8. Sentence counter");
+                Console.WriteLine("9. Exit");
                 choice = int.TryParse(Console.ReadLine(), out int returnValue) ? returnValue : 0;
                 if (choice == 9)
                 {
@@ -264,6 +264,9 @@ namespace Lab03_SystemIO
             return result;
         }
 
+        /// <summary>
+        /// Runs the Write and Read Text methods for words.txt
+        /// </summary>
         static void HandleFileWriteAndRead()
         {
             string path = "../../../words.txt";
@@ -273,6 +276,10 @@ namespace Lab03_SystemIO
             FileReadText(path);
         }
 
+        /// <summary>
+        /// Write a user's input to a file
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public static void FileWriteText(string path)
         {
             Console.WriteLine("What is your favorite word?");
@@ -280,26 +287,46 @@ namespace Lab03_SystemIO
             File.WriteAllText(path, userInput);
         }
 
+        /// <summary>
+        /// Read everything from a file and display to the console
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public static void FileReadText(string path)
         {
             string result = File.ReadAllText(path);
             Console.WriteLine(result);
         }
 
+        /// <summary>
+        /// Handle user input for removing a word from words.txt, read from the file and remove the word then rewrite it.
+        /// </summary>
         public static void HandleRemoveWord()
         {
             string path = "../../../words.txt";
             Console.WriteLine("What word would you like to remove from the file?");
             string userInput = Console.ReadLine();
-            string result = File.ReadAllText(path);
-            if (result.Contains(userInput))
+            string[] fileResult = File.ReadAllText(path).Split(" ");
+            string result = "";
+            for (int i = 0; i < fileResult.Length; i++)
             {
-                result.Replace(userInput, "");
+                if (!fileResult[i].Equals(userInput))
+                {
+                    result += fileResult[i];
+                    if(i < fileResult.Length)
+                    {
+                        result += " ";
+                    }
+                }
             }
             File.WriteAllText(path, result);
-            Console.WriteLine($"\"{result}\" was written to file.");
+            Console.WriteLine($"\"{userInput}\" was removed from the file.");
+            string newResult = File.ReadAllText(path);
+            Console.WriteLine($"The file now reads: {newResult}");
         }
 
+        /// <summary>
+        /// Get user input and call SentenceCounter
+        /// </summary>
         public static void HandleSentenceCounter()
         {
             Console.WriteLine("What sentence would you like me to count the letters in each word for?");
@@ -308,6 +335,11 @@ namespace Lab03_SystemIO
             Console.WriteLine(string.Join(", ", result));
         }
 
+        /// <summary>
+        /// Count the number of letters in each word of a sentence
+        /// </summary>
+        /// <param name="input">Sentence to be counted</param>
+        /// <returns>Array with a string representing each word and it's letter count</returns>
         public static string[] SentenceCounter(string input)
         {
             char[] possibleChars = { ' ', ',', '.', ':', '-', '\t' };
