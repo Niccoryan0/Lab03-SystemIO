@@ -18,7 +18,7 @@ namespace Lab03_SystemIO
         /// </summary>
         public static void UserInterface()
         {
-            int choice = -1;
+            int choice = 0;
             while (choice != 9)
             {
                 Console.WriteLine("Which code challenge would you like to access?");
@@ -225,7 +225,7 @@ namespace Lab03_SystemIO
         {
             int result = arr[0];
             int currentLead = 0;
-            int currentCount = 0;
+            int currentCount;
             for (int i = 0; i < arr.Length; i++)
             {
                 currentCount = 0;
@@ -286,7 +286,6 @@ namespace Lab03_SystemIO
         static void HandleFileWriteAndRead()
         {
             string path = "../../../words.txt";
-            FileWriteText(path);
             Console.WriteLine("Press any button to have your word read from it's file");
             Console.ReadLine();
             FileReadText(path);
