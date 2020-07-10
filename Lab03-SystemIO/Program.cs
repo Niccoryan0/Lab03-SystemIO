@@ -91,7 +91,7 @@ namespace Lab03_SystemIO
         /// <returns>Product of the numbers entered</returns>
         public static int ProdString(string userInput)
         {
-            
+
             string[] myArr = userInput.Split(" ");
             if (myArr.Length < 3)
             {
@@ -110,32 +110,41 @@ namespace Lab03_SystemIO
         /// </summary>
         static void HandleAverage()
         {
-            Console.WriteLine("Please enter a number between 2 and 10: ");
-            int userInput = int.Parse(Console.ReadLine());
-            string[] newArr = new string[userInput];
+            int userInput;
+            while (true)
+            {
+                Console.WriteLine("Please enter a number between 2 and 10: ");
+                string rawInput = Console.ReadLine();
+                if (int.TryParse(rawInput, out int output) && output <= 10 && output >= 2)
+                {
+                    userInput = output;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input!");
+                }
+            }
+            int[] newArr = new int[userInput];
             for (int i = 0; i < userInput; i++)
             {
-                Console.WriteLine($"Enter a number ({i+1} of {userInput}): ");
-                newArr[i] = Console.ReadLine();
+                while (true)
+                {
+                    Console.WriteLine($"Enter a number ({i + 1} of {userInput}): ");
+                    string rawInput = Console.ReadLine();
+                    if (int.TryParse(rawInput, out int output) && output >= 0)
+                    {
+                        newArr[i] = output;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Input!");
+                    }
+                }
             }
-            int[] convertedArr = ConvertArray(newArr);
-            decimal result = GetAverage(convertedArr);
-            Console.WriteLine($"The average of {string.Join(", ", convertedArr)} is {result}");
-        }
-
-        /// <summary>
-        /// Convert an array of strings to integers
-        /// </summary>
-        /// <param name="arr">Array to convert</param>
-        /// <returns>Converted integer array</returns>
-        public static int[] ConvertArray(string[] arr)
-        {
-            int[] result = new int[arr.Length];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                result[i] = int.Parse(arr[i]);
-            }
-            return result;
+            decimal result = GetAverage(newArr);
+            Console.WriteLine($"The average of {string.Join(", ", newArr)} is {result}");
         }
 
         /// <summary>
@@ -173,20 +182,20 @@ namespace Lab03_SystemIO
             // Build the top half first
             for (int i = 1; i <= half; i++)
             {
-                for (int j = 1; j <= (half-i); j++)
+                for (int j = 1; j <= (half - i); j++)
                 {
                     Console.Write(" ");
                 }
-                for (int j = 1; j <= 2*i-1; j++)
+                for (int j = 1; j <= 2 * i - 1; j++)
                 {
                     Console.Write("*");
                 }
                 Console.WriteLine();
             }
             // Build the bottom half
-            for (int i = half-1; i > 0; i--)
+            for (int i = half - 1; i > 0; i--)
             {
-                for (int j = 1; j <= (half-i); j++)
+                for (int j = 1; j <= (half - i); j++)
                 {
                     Console.Write(" ");
                 }
@@ -327,7 +336,7 @@ namespace Lab03_SystemIO
                 if (!fileResult[i].Equals(userInput))
                 {
                     result += fileResult[i];
-                    if(i < fileResult.Length)
+                    if (i < fileResult.Length)
                     {
                         result += " ";
                     }
