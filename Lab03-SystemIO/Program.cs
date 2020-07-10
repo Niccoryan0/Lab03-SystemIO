@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 
 namespace Lab03_SystemIO
 {
@@ -18,7 +19,7 @@ namespace Lab03_SystemIO
         /// </summary>
         public static void UserInterface()
         {
-            int choice = -1;
+            int choice = 0;
             while (choice != 9)
             {
                 Console.WriteLine("Which code challenge would you like to access?");
@@ -91,7 +92,7 @@ namespace Lab03_SystemIO
         /// <returns>Product of the numbers entered</returns>
         public static int ProdString(string userInput)
         {
-            
+
             string[] myArr = userInput.Split(" ");
             if (myArr.Length < 3)
             {
@@ -110,32 +111,41 @@ namespace Lab03_SystemIO
         /// </summary>
         static void HandleAverage()
         {
-            Console.WriteLine("Please enter a number between 2 and 10: ");
-            int userInput = int.Parse(Console.ReadLine());
-            string[] newArr = new string[userInput];
+            int userInput;
+            while (true)
+            {
+                Console.WriteLine("Please enter a number between 2 and 10: ");
+                string rawInput = Console.ReadLine();
+                if (int.TryParse(rawInput, out int output) && output <= 10 && output >= 2)
+                {
+                    userInput = output;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input!");
+                }
+            }
+            int[] newArr = new int[userInput];
             for (int i = 0; i < userInput; i++)
             {
-                Console.WriteLine($"Enter a number ({i+1} of {userInput}): ");
-                newArr[i] = Console.ReadLine();
+                while (true)
+                {
+                    Console.WriteLine($"Enter a number ({i + 1} of {userInput}): ");
+                    string rawInput = Console.ReadLine();
+                    if (int.TryParse(rawInput, out int output) && output >= 0)
+                    {
+                        newArr[i] = output;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Input!");
+                    }
+                }
             }
-            int[] convertedArr = ConvertArray(newArr);
-            decimal result = GetAverage(convertedArr);
-            Console.WriteLine($"The average of {string.Join(", ", convertedArr)} is {result}");
-        }
-
-        /// <summary>
-        /// Convert an array of strings to integers
-        /// </summary>
-        /// <param name="arr">Array to convert</param>
-        /// <returns>Converted integer array</returns>
-        public static int[] ConvertArray(string[] arr)
-        {
-            int[] result = new int[arr.Length];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                result[i] = int.Parse(arr[i]);
-            }
-            return result;
+            decimal result = GetAverage(newArr);
+            Console.WriteLine($"The average of {string.Join(", ", newArr)} is {result}");
         }
 
         /// <summary>
@@ -173,20 +183,20 @@ namespace Lab03_SystemIO
             // Build the top half first
             for (int i = 1; i <= half; i++)
             {
-                for (int j = 1; j <= (half-i); j++)
+                for (int j = 1; j <= (half - i); j++)
                 {
                     Console.Write(" ");
                 }
-                for (int j = 1; j <= 2*i-1; j++)
+                for (int j = 1; j <= 2 * i - 1; j++)
                 {
                     Console.Write("*");
                 }
                 Console.WriteLine();
             }
             // Build the bottom half
-            for (int i = half-1; i > 0; i--)
+            for (int i = half - 1; i > 0; i--)
             {
-                for (int j = 1; j <= (half-i); j++)
+                for (int j = 1; j <= (half - i); j++)
                 {
                     Console.Write(" ");
                 }
@@ -225,7 +235,7 @@ namespace Lab03_SystemIO
         {
             int result = arr[0];
             int currentLead = 0;
-            int currentCount = 0;
+            int currentCount;
             for (int i = 0; i < arr.Length; i++)
             {
                 currentCount = 0;
@@ -287,9 +297,6 @@ namespace Lab03_SystemIO
         {
             string path = "../../../words.txt";
             FileWriteText(path);
-            Console.WriteLine("Press any button to have your word read from it's file");
-            Console.ReadLine();
-            FileReadText(path);
         }
 
         /// <summary>
@@ -298,9 +305,22 @@ namespace Lab03_SystemIO
         /// <param name="path">Path to file</param>
         public static void FileWriteText(string path)
         {
-            Console.WriteLine("What is your favorite word?");
-            string userInput = Console.ReadLine();
-            File.WriteAllText(path, userInput);
+            while (true)
+            {
+                Console.WriteLine("What is your favorite word?");
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(Console.ReadLine());
+                }
+                Console.WriteLine("The document now reads: ");
+                FileReadText(path);
+                Console.WriteLine("Would you like to continue adding to the file? y/n");
+                string response = Console.ReadLine();
+                if (response.ToLower().StartsWith("n"))
+                {
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -328,7 +348,7 @@ namespace Lab03_SystemIO
                 if (!fileResult[i].Equals(userInput))
                 {
                     result += fileResult[i];
-                    if(i < fileResult.Length)
+                    if (i < fileResult.Length)
                     {
                         result += " ";
                     }

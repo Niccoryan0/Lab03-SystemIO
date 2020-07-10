@@ -43,14 +43,6 @@ namespace Lab03_Tests
         }
 
         [Fact]
-        public void CanConvertArray()
-        {
-            string[] arr = new string[] { "1", "2", "3" };
-            int[] result = ConvertArray(arr);
-            Assert.Equal(new int[] { 1, 2, 3 }, result);
-        }
-
-        [Fact]
         public void CanHandleAllZeroes()
         {
             int[] test = new int[] { 0, 0, 0, 0 };
