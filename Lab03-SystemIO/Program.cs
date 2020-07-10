@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 
 namespace Lab03_SystemIO
 {
@@ -295,9 +296,7 @@ namespace Lab03_SystemIO
         static void HandleFileWriteAndRead()
         {
             string path = "../../../words.txt";
-            Console.WriteLine("Press any button to have your word read from it's file");
-            Console.ReadLine();
-            FileReadText(path);
+            FileWriteText(path);
         }
 
         /// <summary>
@@ -306,9 +305,22 @@ namespace Lab03_SystemIO
         /// <param name="path">Path to file</param>
         public static void FileWriteText(string path)
         {
-            Console.WriteLine("What is your favorite word?");
-            string userInput = Console.ReadLine();
-            File.WriteAllText(path, userInput);
+            while (true)
+            {
+                Console.WriteLine("What is your favorite word?");
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(Console.ReadLine());
+                }
+                Console.WriteLine("The document now reads: ");
+                FileReadText(path);
+                Console.WriteLine("Would you like to continue adding to the file? y/n");
+                string response = Console.ReadLine();
+                if (response.ToLower().StartsWith("n"))
+                {
+                    break;
+                }
+            }
         }
 
         /// <summary>
